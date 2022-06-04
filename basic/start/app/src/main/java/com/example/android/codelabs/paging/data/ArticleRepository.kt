@@ -16,27 +16,12 @@
 
 package com.example.android.codelabs.paging.data
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import java.time.LocalDateTime
-
-private val firstArticleCreatedTime = LocalDateTime.now()
-
 /**
  * Repository class that mimics fetching [Article] instances from an asynchronous source.
+ * Paging 라이브러리
+ * 메모리 내 캐시 처리
+ * 사용자가 목록의 끝에 가까워지면 데이터 요청
  */
 class ArticleRepository {
-    /**
-     * Exposed singular stream of [Article] instances
-     */
-    val articleStream: Flow<List<Article>> = flowOf(
-        (0..500).map { number ->
-            Article(
-                id = number,
-                title = "Article $number",
-                description = "This describes article $number",
-                created = firstArticleCreatedTime.minusDays(number.toLong())
-            )
-        }
-    )
+    fun articlePagingSource() = ArticlePagingSource()
 }
